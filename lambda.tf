@@ -1,7 +1,7 @@
 # Deployment package for 'update_security_group_rules' Lambda function.
 data "archive_file" "zip" {
-  output_path = "./scripts/update_security_groups.zip"
-  source_file = "./scripts/update_security_groups.py"
+  output_path = "./modules/cloudfront-security-groups/scripts/update_security_groups.zip"
+  source_file = "./modules/cloudfront-security-groups/scripts/update_security_groups.py"
   type        = "zip"
 }
 
@@ -39,6 +39,6 @@ resource "null_resource" "invoke_lambda_function" {
   ]
 
   provisioner "local-exec" {
-    command = "./scripts/invoke_function.sh ${var.name_prefix}-${var.lambda_function_name}"
+    command = "./modules/cloudfront-security-groups/scripts/invoke_function.sh ${var.name_prefix}-${var.lambda_function_name}"
   }
 }

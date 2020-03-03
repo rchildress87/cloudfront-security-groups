@@ -3,14 +3,15 @@ cloudfront-security-groups provisions new security groups for allowing ingress t
 
 ### Example usage:
 Create a Lamba function and related security groups to permit http and https traffic 
-```module "cloudfront-security-groups" {
-    source  = ...
+```
+module "cloudfront-security-groups" {
+    source  = "./modules/cloudfront-security-groups/"
     version = 1.0.0
 
-    aws_region              = us-east-1
-    lambda_function_name    = update-security-group-rules
+    aws_region              = "us-east-1"
+    lambda_function_name    = "update-security-group-rules"
     name_prefix             = var.name_prefix
     permitted_protocols     = ["http","https"]
-    target_vpc_id           = vpc-a30725da
+    target_vpc_id           = "vpc-a30725da"
 }
 ```
