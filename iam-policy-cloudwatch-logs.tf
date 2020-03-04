@@ -1,5 +1,5 @@
 resource "aws_iam_role" "update_security_group_ingress_rules" {
-  name                = "${var.name_prefix}-update-security-group-ingress-rules"
+  name                = var.iam_role_name
   assume_role_policy  = <<EOF
 {
   "Version": "2012-10-17",
@@ -15,10 +15,11 @@ resource "aws_iam_role" "update_security_group_ingress_rules" {
   ]
 }
 EOF
+  tags                = var.input_tags
 }
 
 resource "aws_iam_policy" "allow_cloudwatch_logging" {
-  name        = "${var.name_prefix}-AllowCloudwatchLogsPartialWriteAccess"
+  name        = var.iam_policy_name_allow_cloudwatch_logging
   path        = "/"
   description = "Minimum access levels required write to Amazon CloudWatch logs for monitoring AWS Lambda functions."
   policy      = <<EOF
@@ -38,7 +39,7 @@ EOF
 }
 
 resource "aws_iam_policy" "allow_security_group_ingress_rules_update" {
-  name        = "${var.name_prefix}-custom-AllowSecurityGroupIngressRulesUpdate"
+  name        = var.iam_policy_name_allow_sg_ingress_rules_update
   path        = "/"
   description = "Minimum access levels required to update EC2 security group ingress rules."
   # Todo: Can the resource in this policy be more granular?
