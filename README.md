@@ -10,8 +10,7 @@ module "cloudfront-security-groups" {
 
     aws_region              = "us-east-1"
     lambda_function_name    = "update-security-group-rules"
-    name_prefix             = var.name_prefix
     permitted_protocols     = ["http","https"]
-    target_vpc_id           = "vpc-a30725da"
+    vpc_id           = "vpc-a30725da"
 }
 ```
