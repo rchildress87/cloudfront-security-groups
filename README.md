@@ -8,9 +8,7 @@ module "cloudfront-security-groups" {
     source  = "./modules/cloudfront-security-groups/"
     version = 1.0.0
 
-    aws_region              = "us-east-1"
-    lambda_function_name    = "update-security-group-rules"
-    permitted_protocols     = ["http","https"]
-    vpc_id           = "vpc-a30725da"
+    aws_region  = "us-east-1"
+    vpc_id      = "vpc-a30725da"
 }
 ```

@@ -65,7 +65,7 @@ resource "aws_iam_policy" "allow_security_group_ingress_rules_update" {
       ],
       "Resource" = concat(
         values(aws_security_group.allow_cloudfront_global_ips)[*].arn,
-         values(aws_security_group.allow_cloudfront_regional_ips)[*].arn
+        values(aws_security_group.allow_cloudfront_regional_ips)[*].arn
       )
     }]
   })

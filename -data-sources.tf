@@ -5,8 +5,6 @@ data "archive_file" "zip" {
   type        = "zip"
 }
 
-# TODO: Is aws_caller_identity the best way to get the current account ID? Used by module to build IAM policy resource strings.
-
 data "aws_vpc" "selected" {
   id = var.vpc_id
 }
