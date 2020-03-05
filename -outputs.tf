@@ -1,9 +1,9 @@
-output "ec2_sg_global_ids" {
+output "ec2_sg_cloudfront_global" {
   description = "Security groups created to allow ingress traffic from Amazon CloudFront global IP address ranges."
   value = list(aws_security_group.allow_cloudfront_global_ips)
 }
 
-output "ec2_sg_regional" {
+output "ec2_sg_cloudfront_regional" {
   description = "Security groups created to allow ingress traffic from Amazon CloudFront regional IP address ranges."
   value = list(aws_security_group.allow_cloudfront_regional_ips)
 }

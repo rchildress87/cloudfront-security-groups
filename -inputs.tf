@@ -21,10 +21,16 @@ variable "iam_policy_name_allow_cloudwatch_logging" {
   default     = "custom-AllowCloudwatchLogsPartialWriteAccess"
 }
 
-variable "iam_policy_name_allow_sg_ingress_rules_update" {
-  description = "Name given to IAM policy that allows listing, creating, and updating security group ingress rules."
+variable "iam_policy_name_allow_sg_describe" {
+  description = "Name given to custom IAM policy that allows describing EC2 security groups." 
   type        = string
-  default     = "custom-AllowSecurityGroupIngressRulesUpdate"
+  default     = "custom-AllowEC2SecurityGroupDescribe"
+}
+
+variable "iam_policy_name_allow_sg_ingress_rules_update" {
+  description = "Name given to custom IAM policy that allows listing, creating, and updating EC2 security group ingress rules."
+  type        = string
+  default     = "custom-AllowEC2SecurityGroupIngressRulesUpdate"
 }
 
 variable "iam_role_name" {
@@ -51,7 +57,7 @@ variable "lambda_function_name" {
 variable "lambda_permission_name" {
   description = "Name of Lambda permission that allows a function to be triggered by an SNS notification."
   type        = string
-  default     = "custom-AllowExecutionFromSNS"
+  default     = "custom-AllowInvocationFromSNS"
 }
 
 #variable "name_prefix" {

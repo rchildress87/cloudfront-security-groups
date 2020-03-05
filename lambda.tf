@@ -1,15 +1,7 @@
-# Deployment package for 'update_security_group_rules' Lambda function.
-data "archive_file" "zip" {
-  output_path = "./modules/cloudfront-security-groups/scripts/update_security_groups.zip"
-  source_file = "./modules/cloudfront-security-groups/scripts/update_security_groups.py"
-  type        = "zip"
-}
-
 resource "aws_lambda_function" "update_security_group_rules" {
   depends_on          = [
-    aws_iam_role_policy_attachment.attach_policy_logging,
-    aws_iam_role_policy_attachment.attach_policy_security_group_updates,
-    aws_cloudwatch_log_group.update_security_groups_lambda_log
+    aws_iam_role_policy_attachment.attach_policy_security_group_describe,
+    aws_iam_role_policy_attachment.attach_policy_security_group_updates
   ]
 
   description         = "Finds all EC2 security groups tagged name=cloudfront_g or name=cloudfront_r and protocol=http or protocol=https and creates rules, as needed, for ingress traffic on 80/tcp or 443/tcp from published Amazon CloudFront IP address ranges."
@@ -40,6 +32,6 @@ resource "null_resource" "invoke_lambda_function" {
   ]
 
   provisioner "local-exec" {
-    command = "./modules/cloudfront-security-groups/scripts/invoke_function.sh ${var.lambda_function_name}"
+    command = "${path.module}/scripts/invoke_function.sh ${aws_lambda_function.update_security_group_rules.function_name}"
   }
 }
