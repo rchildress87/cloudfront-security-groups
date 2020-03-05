@@ -32,10 +32,10 @@ TAGS = {
     'AutoUpdate': os.environ.get('TagAutoUpdate', 'AutoUpdate'),
     'Protocol': os.environ.get('TagProtocol', 'Protocol')
 }
-SECURITY_GROUP_TAG_FOR_GLOBAL_HTTP = { TAGS['Name']: 'cloudfront_g', TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'http' }
-SECURITY_GROUP_TAG_FOR_GLOBAL_HTTPS = { TAGS['Name']: 'cloudfront_g', TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'https' }
-SECURITY_GROUP_TAG_FOR_REGION_HTTP = { TAGS['Name']: 'cloudfront_r', TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'http' }
-SECURITY_GROUP_TAG_FOR_REGION_HTTPS = { TAGS['Name']: 'cloudfront_r', TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'https' }
+SECURITY_GROUP_TAG_FOR_GLOBAL_HTTP = { TAGS['Name']: os.environ.get('CLOUDFRONT_G_TAG'), TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'http' }
+SECURITY_GROUP_TAG_FOR_GLOBAL_HTTPS = { TAGS['Name']: os.environ.get('CLOUDFRONT_G_TAG'), TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'https' }
+SECURITY_GROUP_TAG_FOR_REGION_HTTP = { TAGS['Name']: os.environ.get('CLOUDFRONT_R_TAG'), TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'http' }
+SECURITY_GROUP_TAG_FOR_REGION_HTTPS = { TAGS['Name']: os.environ.get('CLOUDFRONT_R_TAG'), TAGS['AutoUpdate']: 'true', TAGS['Protocol']: 'https' }
 
 
 logger.setLevel(logging.INFO)

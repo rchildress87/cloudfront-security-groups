@@ -3,6 +3,18 @@ variable "aws_region" {
   type        = string
 }
 
+variable "cloudfront_sg_global_tag" {
+  description = "Name tag given to the security groups responsible for ingress traffic from Amazon CloudFront global IP addresses."
+  type        = string
+  default     = "cloudfront_g"
+}
+
+variable "cloudfront_sg_regional_tag" {
+  description = "Name tag given to the security groups responsible for ingress traffic from Amazon CloudFront regional IP addresses."
+  type        = string
+  default     = "cloudfront_r"
+}
+
 variable "group_name_global" {
   description = "Group name given to the security groups(s) that allow ingress traffic from Amazon CloudFront global IP address ranges. Will be suffixed by permitted protocol."
   type        = string

@@ -6,7 +6,7 @@ resource "aws_security_group" "allow_cloudfront_global_ips" {
   vpc_id      = data.aws_vpc.selected.id
   tags = merge(
     {
-      Name        = "cloudfront_g"
+      Name        = var.cloudfront_sg_global_tag
       AutoUpdate  = "true"
       Protocol    = each.key
     },
@@ -22,7 +22,7 @@ resource "aws_security_group" "allow_cloudfront_regional_ips" {
   vpc_id      = data.aws_vpc.selected.id
   tags = merge(
     {
-      Name        = "cloudfront_r"
+      Name        = var.cloudfront_sg_regional_tag
       AutoUpdate  = "true"
       Protocol    = each.key
     },

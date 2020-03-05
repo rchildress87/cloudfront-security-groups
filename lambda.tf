@@ -14,6 +14,13 @@ resource "aws_lambda_function" "update_security_group_rules" {
   timeout             = 4             # Adjust as needed. The default, 3, is not quite enough for the four security zones created (~3177ms).
   memory_size         = 128           # Adjust as needed. Script uses ~87MB for four security zones. 128MB is minimum allowed.
   tags                = var.input_tags
+
+  environment {
+    variables = {
+      CLOUDFRONT_G_TAG = var.cloudfront_sg_global_tag
+      CLOUDFRONT_R_TAG = var.cloudfront_sg_regional_tag
+    }
+  }
 }
 
 resource "aws_lambda_permission" "allow_invocation_by_sns" {
