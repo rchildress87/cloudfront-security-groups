@@ -63,7 +63,10 @@ resource "aws_iam_policy" "allow_security_group_ingress_rules_update" {
         "ec2:AuthorizeSecurityGroupIngress",
         "ec2:RevokeSecurityGroupIngress"
       ],
-      "Resource" = "arn:${data.aws_partition.current.partition}:ec2:${data.aws_region.selected.name}:${data.aws_caller_identity.current.account_id}:security-group/*"
+      "Resource" = concat(
+        values(aws_security_group.allow_cloudfront_global_ips)[*].arn,
+         values(aws_security_group.allow_cloudfront_regional_ips)[*].arn
+      )
     }]
   })
 }
