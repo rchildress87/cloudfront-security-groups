@@ -6,7 +6,6 @@ Create a Lamba function and related security groups to permit http and https tra
 ```
 module "cloudfront-security-groups" {
     source  = "./modules/cloudfront-security-groups/"
-    version = 1.0.0
 
     aws_region  = "us-east-1"
     vpc_id      = "vpc-a30725da"
