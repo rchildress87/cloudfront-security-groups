@@ -3,6 +3,7 @@ variable "aws_region" {
   type        = string
 }
 
+/*
 variable "cloudfront_sg_global_tag" {
   default     = "cloudfront_g"
   description = "Name tag given to the security groups responsible for ingress traffic from Amazon CloudFront global IP addresses."
@@ -14,19 +15,21 @@ variable "cloudfront_sg_regional_tag" {
   description = "Name tag given to the security groups responsible for ingress traffic from Amazon CloudFront regional IP addresses."
   type        = string
 }
+*/
 
-variable "group_name_global" {
+variable "ec2_sg_name_global" {
   default     = "allow-cloudfront-global-ips"
   description = "Group name given to the security groups(s) that allow ingress traffic from Amazon CloudFront global IP address ranges. Will be suffixed by permitted protocol."
   type        = string
 }
 
-variable "group_name_regional" {
+variable "ec2_sg_name_regional" {
   default     = "allow-cloudfront-regional-ips"
   description = "Group name given to the security groups(s) that allow ingress traffic from Amazon CloudFront regional IP address ranges. Will be suffixed by permitted protocol."
   type        = string
 }
 
+/*
 variable "iam_policy_name_allow_cloudwatch_logging" {
   default     = "custom-AllowCloudwatchLogsPartialWriteAccess"
   description = "Name given to IAM policy that allows for partial write access to CloudWatch logs."
@@ -50,6 +53,7 @@ variable "iam_role_name" {
   description = "Name given to IAM role for updating ingress rules in security groups."
   type        = string
 }
+*/
 
 variable "input_tags" {
   default = {
@@ -66,11 +70,13 @@ variable "lambda_function_name" {
   type        = string
 }
 
+/*
 variable "lambda_permission_name" {
   default     = "custom-AllowInvocationFromSNS"
   description = "Name of Lambda permission that allows a function to be triggered by an SNS notification."
   type        = string
 }
+*/
 
 variable "permitted_protocols" {
   default     = ["http","https"] # Only HTTP and HTTPS are supported by update_security_groups.py

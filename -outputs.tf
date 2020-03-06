@@ -15,7 +15,7 @@ output "ec2_sg_cloudfront_regional" {
 
 output "iam_role" {
   description = "IAM role assigned to the Lambda function for updating security group ingress rules."
-  value = aws_iam_role.update_security_group_ingress_rules
+  value = aws_iam_role.update_ec2_sg_ingress_rules
 }
 
 output "lambda_function" {

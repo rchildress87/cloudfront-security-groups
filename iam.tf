@@ -1,4 +1,4 @@
-resource "aws_iam_role" "update_security_group_ingress_rules" {
+resource "aws_iam_role" "update_ec2_sg_ingress_rules" {
   assume_role_policy  = jsonencode({
     "Version" = "2012-10-17",
     "Statement" = [{
@@ -11,8 +11,8 @@ resource "aws_iam_role" "update_security_group_ingress_rules" {
     }]
   })
 
-  name                = var.iam_role_name
-  tags                = var.input_tags
+  name  = "${var.lambda_function_name}-role"
+  tags  = var.input_tags
 }
 
 resource "aws_iam_policy" "allow_cloudwatch_logging" {
@@ -32,8 +32,8 @@ resource "aws_iam_policy" "allow_cloudwatch_logging" {
     }]
   })
 
-  description = "Minimum access levels required write to Amazon CloudWatch logs for monitoring AWS Lambda functions."
-  name        = var.iam_policy_name_allow_cloudwatch_logging
+  description = "Minimum permissions required for writing to the '${var.lambda_function_name}' Lambda function CloudWatch log group."
+  name        = "${var.lambda_function_name}-allow-logging"
   path        = "/"
 }
 
@@ -48,7 +48,7 @@ resource "aws_iam_policy" "allow_security_group_describe" {
   })
 
   description = "Minimum access levels required read EC2 security groups."
-  name        = var.iam_policy_name_allow_sg_describe
+  name        = "${var.lambda_function_name}-describe-ec2-security-groups"
   path        = "/"
 }
 
@@ -69,21 +69,21 @@ resource "aws_iam_policy" "allow_security_group_ingress_rules_update" {
   })
 
   description = "Minimum access levels required to update EC2 security groups' ingress rules."
-  name        = var.iam_policy_name_allow_sg_ingress_rules_update
+  name        = "${var.lambda_function_name}-allow-ec2-sg-ingress-rule-update"
   path        = "/"
 }
 
-resource "aws_iam_role_policy_attachment" "attach_policy_logging" {
+resource "aws_iam_role_policy_attachment" "allow_logging" {
   policy_arn  = aws_iam_policy.allow_cloudwatch_logging.arn
-  role        = aws_iam_role.update_security_group_ingress_rules.name
+  role        = aws_iam_role.update_ec2_sg_ingress_rules.name
 }
 
-resource "aws_iam_role_policy_attachment" "attach_policy_security_group_describe" {
+resource "aws_iam_role_policy_attachment" "describe_ec2_security_group" {
   policy_arn  = aws_iam_policy.allow_security_group_describe.arn
-  role        = aws_iam_role.update_security_group_ingress_rules.name
+  role        = aws_iam_role.update_ec2_sg_ingress_rules.name
 }
 
-resource "aws_iam_role_policy_attachment" "attach_policy_security_group_updates" {
+resource "aws_iam_role_policy_attachment" "allow_ingress_rule_update" {
   policy_arn  = aws_iam_policy.allow_security_group_ingress_rules_update.arn
-  role        = aws_iam_role.update_security_group_ingress_rules.name
+  role        = aws_iam_role.update_ec2_sg_ingress_rules.name
 }

@@ -2,10 +2,10 @@ resource "aws_security_group" "allow_cloudfront_global_ips" {
   for_each = toset(var.permitted_protocols)
 
   description = "Allow ingress ${each.key} traffic from Amazon CloudFront global IP ranges."
-  name        = "${var.group_name_global}-${each.key}"
+  name        = "${var.ec2_sg_name_global}-${each.key}"
   tags = merge(
     {
-      Name        = var.cloudfront_sg_global_tag
+      Name        = var.ec2_sg_name_global
       AutoUpdate  = "true"
       Protocol    = each.key
     },
@@ -17,11 +17,11 @@ resource "aws_security_group" "allow_cloudfront_global_ips" {
 resource "aws_security_group" "allow_cloudfront_regional_ips" {
   for_each = toset(var.permitted_protocols)
 
-  name        = "${var.group_name_regional}-${each.key}"
+  name        = "${var.ec2_sg_name_regional}-${each.key}"
   description = "Allow ingress ${each.key} traffic from Amazon CloudFront regional IP ranges."
   tags = merge(
     {
-      Name        = var.cloudfront_sg_regional_tag
+      Name        = var.ec2_sg_name_regional
       AutoUpdate  = "true"
       Protocol    = each.key
     },
