@@ -8,8 +8,8 @@ module "cloudfront-security-groups" {
     source               = "./modules/cloudfront-security-groups"
 
     aws_region           = "us-east-1"
-    vpc_id               = "vpc-a30725da"
     ec2_sg_name_global   = "cf_global_g"
     ec2_sg_name_regional = "cf_global_r"
+    vpc_id               = "vpc-a30725da"
 }
 ```
