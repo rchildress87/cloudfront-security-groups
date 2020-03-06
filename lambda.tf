@@ -32,6 +32,7 @@ resource "aws_lambda_permission" "allow_invocation_by_sns" {
   statement_id  = "${aws_lambda_function.update_security_group_rules.function_name}-allow-sns-invoke"
 }
 
+/*
 resource "null_resource" "invoke_lambda_function" {
   depends_on = [
     aws_lambda_function.update_security_group_rules,
@@ -43,3 +44,4 @@ resource "null_resource" "invoke_lambda_function" {
     command = "${path.module}/scripts/invoke_function.sh ${aws_lambda_function.update_security_group_rules.function_name}"
   }
 }
+*/
