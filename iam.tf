@@ -1,5 +1,4 @@
 resource "aws_iam_role" "update_security_group_ingress_rules" {
-  name                = var.iam_role_name
   assume_role_policy  = jsonencode({
     "Version" = "2012-10-17",
     "Statement" = [{
@@ -11,13 +10,12 @@ resource "aws_iam_role" "update_security_group_ingress_rules" {
       "Sid"       = ""
     }]
   })
+
+  name                = var.iam_role_name
   tags                = var.input_tags
 }
 
 resource "aws_iam_policy" "allow_cloudwatch_logging" {
-  name        = var.iam_policy_name_allow_cloudwatch_logging
-  path        = "/"
-  description = "Minimum access levels required write to Amazon CloudWatch logs for monitoring AWS Lambda functions."
   policy      = jsonencode({
     "Version"   = "2012-10-17",
     "Statement" = [{
@@ -33,12 +31,13 @@ resource "aws_iam_policy" "allow_cloudwatch_logging" {
       ]
     }]
   })
+
+  description = "Minimum access levels required write to Amazon CloudWatch logs for monitoring AWS Lambda functions."
+  name        = var.iam_policy_name_allow_cloudwatch_logging
+  path        = "/"
 }
 
 resource "aws_iam_policy" "allow_security_group_describe" {
-  name        = var.iam_policy_name_allow_sg_describe
-  path        = "/"
-  description = "Minimum access levels required read EC2 security groups."
   policy      = jsonencode({
     "Version"   = "2012-10-17",
     "Statement" = [{
@@ -47,14 +46,13 @@ resource "aws_iam_policy" "allow_security_group_describe" {
       "Resource" = "*"
     }]
   })
+
+  description = "Minimum access levels required read EC2 security groups."
+  name        = var.iam_policy_name_allow_sg_describe
+  path        = "/"
 }
 
 resource "aws_iam_policy" "allow_security_group_ingress_rules_update" {
-  name        = var.iam_policy_name_allow_sg_ingress_rules_update
-  path        = "/"
-  description = "Minimum access levels required to update EC2 security groups' ingress rules."
-
-  # Todo: Set resource = to specific security group ARNs rather than * and dont build arn from strings, reference objects instead.
   policy = jsonencode({
     "Version" = "2012-10-17",
     "Statement" = [{
@@ -69,19 +67,23 @@ resource "aws_iam_policy" "allow_security_group_ingress_rules_update" {
       )
     }]
   })
+
+  description = "Minimum access levels required to update EC2 security groups' ingress rules."
+  name        = var.iam_policy_name_allow_sg_ingress_rules_update
+  path        = "/"
 }
 
 resource "aws_iam_role_policy_attachment" "attach_policy_logging" {
-  role        = aws_iam_role.update_security_group_ingress_rules.name
   policy_arn  = aws_iam_policy.allow_cloudwatch_logging.arn
+  role        = aws_iam_role.update_security_group_ingress_rules.name
 }
 
 resource "aws_iam_role_policy_attachment" "attach_policy_security_group_describe" {
-  role        = aws_iam_role.update_security_group_ingress_rules.name
   policy_arn  = aws_iam_policy.allow_security_group_describe.arn
+  role        = aws_iam_role.update_security_group_ingress_rules.name
 }
 
 resource "aws_iam_role_policy_attachment" "attach_policy_security_group_updates" {
-  role        = aws_iam_role.update_security_group_ingress_rules.name
   policy_arn  = aws_iam_policy.allow_security_group_ingress_rules_update.arn
+  role        = aws_iam_role.update_security_group_ingress_rules.name
 }
