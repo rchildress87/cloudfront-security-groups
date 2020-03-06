@@ -3,6 +3,14 @@ output "cloudwatch_log_group" {
   value = aws_cloudwatch_log_group.update_security_groups_lambda_log
 }
 
+output "ec2_sg_cloudfront" {
+description = "Security groups created to allow ingress traffic from all Amazon CloudFront IP address ranges."
+  value = concat(
+    aws_security_group.allow_cloudfront_global_ips[*],
+    aws_security_group.allow_cloudfront_regional_ips[*]
+  )
+}
+
 output "ec2_sg_cloudfront_global" {
   description = "Security groups created to allow ingress traffic from Amazon CloudFront global IP address ranges."
   value = list(aws_security_group.allow_cloudfront_global_ips)
