@@ -1,5 +1,5 @@
 resource "aws_security_group" "allow_cloudfront_global_ips" {
-  for_each = toset(var.permitted_protocols)
+  for_each = var.permitted_protocols
 
   description = "Allow ingress ${each.key} traffic from Amazon CloudFront global IP ranges."
   name        = "${var.ec2_sg_name_global}-${each.key}"
@@ -15,7 +15,7 @@ resource "aws_security_group" "allow_cloudfront_global_ips" {
 }
 
 resource "aws_security_group" "allow_cloudfront_regional_ips" {
-  for_each = toset(var.permitted_protocols)
+  for_each = var.permitted_protocols
 
   name        = "${var.ec2_sg_name_regional}-${each.key}"
   description = "Allow ingress ${each.key} traffic from Amazon CloudFront regional IP ranges."
