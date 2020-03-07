@@ -9,7 +9,7 @@ resource "aws_lambda_function" "update_security_group_rules" {
   role                = aws_iam_role.update_ec2_sg_ingress_rules.arn
   runtime             = "python3.8"   # Script seems to work as intended in python 3.8 but it was written for python 2.7.
 
-  description         = "Finds all EC2 security groups tagged name=${var.ec2_sg_name_global} or name=${var.ec2_sg_name_regional} and protocol=http or protocol=https and creates rules, as needed, for ingress traffic on 80/tcp or 443/tcp from published Amazon CloudFront IP address ranges."
+  description         = "Finds all security groups tagged name=${var.ec2_sg_name_global} or name=${var.ec2_sg_name_regional} and protocol=http or protocol=https and syncs ingress rules for 80/tcp or 443/tcp with published CloudFront IPs."
   environment {
     variables = {
       CLOUDFRONT_G_TAG = var.ec2_sg_name_global
