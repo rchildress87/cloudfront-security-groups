@@ -32,7 +32,7 @@ variable "lambda_function_name" {
 
 variable "permitted_protocols" {
   default     = ["http","https"] # Only HTTP and HTTPS are supported by update_security_groups.py
-  description = "List of protocols to be allowed ingressly from CloudFront."
+  description = "List of protocols to be allowed ingressly from CloudFront. Only http and https are currently supported."
   type        = set(string)
 }
 
